@@ -1,6 +1,16 @@
 <template>
   <div>
-    {{ salad }}
+    <div>
+      <ul>
+        <li v-for="item in salad">{{ item }}</li>
+      </ul>
+    </div>
+    <form>
+      <input v-model="extraIngredient"
+            type="text"
+      />
+      <button type="submit" @click="addExtraIngredient">Add</button>
+    </form>
   </div>
 </template>
 
@@ -10,12 +20,17 @@ import { mapActions } from 'vuex'
 export default {
   data() {
     return {
-      ...this.$store.state
+      ...this.$store.state,
+      extraIngredient: ''
     }
   },
 
   methods: {
-    ...mapActions(['addIngredient'])
+    ...mapActions(['addIngredient']),
+    addExtraIngredient: function() {
+      this.addIngredient(this.extraIngredient)
+      this.extraIngredient = ''
+    }
   },
 }
 </script>
